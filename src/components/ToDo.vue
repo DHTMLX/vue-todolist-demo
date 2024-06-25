@@ -6,24 +6,29 @@ export default {
   props: ["tasks", "users", "projects"],
 
   mounted() {
-    const todo = new ToDo(this.$refs.todo_container, {
+    this.todo = new ToDo(this.$refs.todo_container, {
       users: this.users,
       tasks: this.tasks,
       projects: this.projects,
+      // other configuration properties
     });
 
-    new Toolbar(this.$refs.toolbar_container, {
-      api: todo.api
+    this.toolbar = new Toolbar(this.$refs.toolbar_container, {
+      api: this.todo.api,
+      // other configuration properties
     });
   },
+
   unmounted() {
-    this.$refs.toolbar_container.innerHTML = "";
-    this.$refs.todo_container.innerHTML = "";
+    this.todo.destructor();
+    this.toolbar.destructor();
   }
 };
 </script>
 
 <template>
-  <div ref="toolbar_container"></div>
-  <div ref="todo_container" style="width: 100%; height: 100%"></div>
+  <div class="component_container">
+    <div ref="toolbar_container"></div>
+    <div ref="todo_container" style="height: calc(100% - 56px);"></div>
+  </div>
 </template>
