@@ -9,9 +9,9 @@ export default {
     return {
       users,
       projects,
-      tasks,
+      tasks
     };
-  },
+  }
 };
 </script>
 
